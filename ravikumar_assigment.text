@@ -1,0 +1,96 @@
+assigment file [D[D[D[D[D[D[D[D[D[D[D[D[D[D[D this assigment file is pushed
+assigment
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment
+$ mkdir source
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment
+$ mkdir destination
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment
+$ cd source
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source
+$ touch ravikumar_assigment.text
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source
+$ cat > ravikumar_assigment.text
+hii this is a new file to assigment practice
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source
+$ cat  ravikumar_assigment.text
+hii this is a new file to assigment practice
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source
+$ ls
+ravikumar_assigment.text
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source       
+$ cp  ravikumar_assigment.text destination
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source       
+$ cp  ravikumar_assigment.text../ destination
+cp: cannot stat 'ravikumar_assigment.text../': No such file or directory
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source       
+$ cd ..
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment
+$ cd destination/
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  
+$ ls
+ravikumar_assigment.text
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  
+$ cd ..
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment
+$ cd source
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source       
+$ ls
+ravikumar_assigment.text
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source       
+$ rm ravikumar_assigment.text
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source       
+$ ls
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source       
+$ cd ..
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment
+$ cd destination
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  
+$ ls
+ravikumar_assigment.text
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  $ mv ravikumar_assigment.text ../sourceravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  
+$ cd ..ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment
+$ cd sourceravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source       $ lsravikumar_assigment.text
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source       
+$ mv ravikumar_assigment.text ../destinationravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/source       $ cd ..ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment$ cd destination
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  $ ls
+ravikumar_assigment.text
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  $ vim
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  $ vim ravikumar_assigment.text
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  $ grep "function up " ravikumar_assigment.text
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  $ vim ravikumar_assigment.text
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  
+$ grep "function up " ravikumar_assigment.text
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  
+$ grep function up  ravikumar_assigment.text
+grep: up: No such file or directory
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  
+$ grep  ravikumar_assigment.text
+"function up"
+
+
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  
+$ cat  ravikumar_assigment.text
+hii this is a new file to assigment practice
+ravi@LAPTOP-RRONA9CH MINGW64 ~/Desktop/assigment/destination  
+$
