@@ -1,28 +1,8 @@
-// const express = require('express');
-// const router = express.Router();
-
-// const cowinController = require("../controllers/cowinController")
-
-// router.get("/cowin/states", cowinController.getStatesList)
-// router.get("/cowin/districts/:stateId", cowinController.getDistrictsList)
-// router.get("/cowin/centers", cowinController.getByPin)
-// router.post("/cowin/getOtp", cowinController.getOtp)
-// router.get("/londontemp", cowinController.gettemp)
-
-
-// module.exports = router;
 const express = require('express');
 const router = express.Router();
 
-const cowinController = require("../controllers/cowinController")
-    // cowin API's
-router.get("/cowin/states", cowinController.getStatesList)
-router.get("/cowin/districts/:stateId", cowinController.getDistrictsList)
-router.get("/cowin/centers", cowinController.getByPin)
-router.post("/cowin/getOtp", cowinController.getOtp)
-    // Temperature API's
-router.get("/city/temp", cowinController.getTemp)
-router.get("/city/weather", cowinController.cityWeather)
-router.get("/citytemp/temp", cowinController.allTemp)
+const CryptoController = require("../controllers/CryptoController")
 
-module.exports = router;
+router.get("/assets", CryptoController.getCoins);
+
+module.exports = router
