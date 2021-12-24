@@ -147,8 +147,161 @@ const userLogin = async function(req, res) {
 }
 
 
+
+//-------------------------------------------------------------------------------------------------
+
+const getUserDetails = async function(req, res) {
+    try {
+        const user_Id = req.params.userId;
+        const userId = req.userId;
+
+        console.log(userId)
+        if (!validator.isValidObjectId(user_Id)) {
+            return res
+                .status(400)
+                .send({ status: false, message: `${userId} is not a valid user id` });
+        }
+
+        const user = await userModel.findById({ _id: user_Id });
+
+        if (!user) {
+            return res
+                .status(404)
+                .send({ status: false, message: `User does not exit` });
+        }
+
+        
+        if (req.user.userId != user_Id) {
+            return res
+                .status(401)
+                .send({
+                    status: false,
+                    message: `Unauthorized access! `,
+                });
+            return;
+        }
+
+        return res
+            .status(200)
+            .send({ status: true, message: "User profile details", data: user });
+    } catch (error) {
+        return res.status(500).send({ status: false, message: error.message });
+    }
+};
+
+
+
+
+
+
+
+
+const updateUser = async function(req, res) {
+    try {
+        const userId = req.params.userId
+        const tokenUserId = req.userId
+
+        if (!isValidObjectId(userId) && !isValidObjectId(tokenUserId)) {
+            return res.status(404).send({ status: false, message: "userId or token is not valid" })
+        }
+        const user = await userModel.findOne({ _id: userId })
+        if (!user) {
+            res.status(404).send({ status: false, message: `user not found` })
+            return
+        }
+        if (!(userId.toString() == tokenUserId.toString())) {
+            return res.status(401).send({ status: false, message: `Unauthorized access! Owner info doesn't match` });
+        }
+
+        let { fname, lname, email, phone, password, address } = req.body
+
+        const profileImage = req.urlimage
+
+        const filterQuery = {};
+        if (isValid(fname)) {
+            filterQuery['fname'] = fname.trim()
+        }
+        if (isValid(lname)) {
+            filterQuery['lname'] = lname.trim()
+        }
+        if (isValid(email)) {
+            const checkEmail = await userModel.find({ email: email })
+            if (!(checkEmail.length == 0)) {
+                return res.status(400).send({ status: false, message: `${email} is not unique` })
+            }
+            filterQuery['email'] = email.trim()
+        }
+        if (isValid(phone)) {
+            const checkphone = await userModel.find({ phone: phone })
+            if (!(checkphone.length == 0)) {
+                return res.status(400).send({ status: false, message: `${phone} is not unique` })
+            }
+            filterQuery['phone'] = phone.trim()
+        }
+        if (isValid(password)) {
+            if (password.trim().length > 7 && password.trim().length < 16) {
+                const hashPassword = await aws.hashPassword(password.trim())
+                filterQuery['password'] = hashPassword;
+            }
+        }
+
+        if (address) {
+            address = JSON.parse(address)
+            if (address.shipping) {
+                if ('address.shipping.street') {
+                    if (!validString(address.shipping.street)) {
+                        return res.status(400).send({ status: false, message: ' Please provide street' })
+                    }
+                    filterQuery['address.shipping.street'] = address.shipping.street
+                }
+                if ('address.shipping.city') {
+                    if (!validString(address.shipping.city)) {
+                        return res.status(400).send({ status: false, message: ' Please provide city' })
+                    }
+                    filterQuery['address.shipping.city'] = address.shipping.city
+                }
+                if ('address.shipping.pincode') {
+                    if (typeof address.shipping.pincode !== 'number') {
+                        return res.status(400).send({ status: false, message: ' Please provide pincode' })
+                    }
+                    filterQuery['address.shipping.pincode'] = address.shipping.pincode
+                }
+            }
+
+            if (address.billing) {
+                if ('address.billing.street') {
+                    if (!validString(address.billing.street)) {
+                        return res.status(400).send({ status: false, message: ' Please provide street' })
+                    }
+                    filterQuery['address.billing.street'] = address.billing.street
+                }
+                if ('address.billing.city') {
+                    if (!validString(address.billing.city)) {
+                        return res.status(400).send({ status: false, message: ' Please provide city' })
+                    }
+                    filterQuery['address.billing.city'] = address.billing.city
+                }
+                if ('address.billing.pincode') {
+                    if (typeof address.billing.pincode !== 'number') {
+                        return res.status(400).send({ status: false, message: ' Please provide pincode' })
+                    }
+                    filterQuery['address.billing.pincode'] = address.billing.pincode
+                }
+            }
+        }
+        filterQuery.profileImage = profileImage;
+        const userdetails = await userModel.findOneAndUpdate({ userId }, filterQuery, { new: true })
+        return res.status(200).send({ status: true, message: "User profile Details", data: userdetails })
+
+    } catch (error) {
+        res.status(500).send({ status: false, message: error.message })
+    }
+}
+
 module.exports = {
     userCreation,
     userLogin,
+    getUserDetails,
+    updateUser
 
 }
