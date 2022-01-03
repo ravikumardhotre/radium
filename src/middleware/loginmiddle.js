@@ -2,26 +2,26 @@ const jwt = require('jsonwebtoken')
 
 const userAuth = async(req, res, next) => {
     try {
-        const token = req.Authorization('Bearer Token')
+        const token = req.header('Authorization', 'Bearer Token')
         if (!token) {
-            res.status(403).send({ status: false, message: `Missing authentication token in request` })
-            return;
+            return res.status(403).send({ status: false, message: `Missing authentication token in request` })
         }
+        let splitToken = token.split(' ')
 
-        const decoded = await jwt.verify(token, 'soramoki')
 
-        if (!decoded) {
-            res.status(403).send({ status: false, message: `Invalid authentication token in request` })
-            return;
+        let decodeToken = jwt.decode(splitToken[1], 'group3-Project5-Products_management')
+        if (!decodeToken) {
+            return res.status(403).send({ status: false, message: `Invalid authentication token in request ` })
         }
-
-        req.userId = decoded.userId;
-
+        if (Date.now() > (decodeToken.exp) * 1000) {
+            return res.status(404).send({ status: false, message: `Session Expired, please login again` })
+        }
+        req.userId = decodeToken.userId
         next()
-    } catch (error) {
-        console.error(`Error! ${error.message}`)
-        res.status(500).send({ status: false, message: error.message })
+    } catch (err) {
+        res.status(500).send({ status: false, message: err.message })
     }
 }
 
-module.exports = userAuth
+
+module.exports = { userAuth }
